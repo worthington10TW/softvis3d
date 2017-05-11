@@ -58,6 +58,8 @@ export default class SonarQubeMeasuresService {
         this.sceneStore.options = options;
         this.sceneStore.shapes = null;
 
+        // this.projectKey = "org.sonarsource.sonarqube:sonarqube";
+
         let metricKeys = this.measureMetricService.getMetricRequestValues();
 
         if (this.metricKeys && this.metricKeys === metricKeys) {
@@ -71,7 +73,7 @@ export default class SonarQubeMeasuresService {
             let root: TreeElement =
                 new TreeElement(this.projectKey, this.projectKey, {}, this.projectKey, this.projectKey, false);
 
-            this.appStatusStore.loadStatusUpdate(SonarQubeMeasuresService.LOAD_MEASURES.key, 1, 0);
+            this.appStatusStore.loadStatusUpdate(SonarQubeMeasuresService.LOAD_MEASURES.key, 0, 0);
 
             this.measureTreeService.loadTree(root, metricKeys).then(() => {
                 this.measureTreeService.removeEmptyDirectories(root);

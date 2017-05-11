@@ -2,11 +2,8 @@ import {SceneStore} from "../stores/SceneStore";
 import {CityBuilderStore} from "../stores/CityBuilderStore";
 import {reaction} from "mobx";
 import LegacyCityCreator from "../legacy/LegacyCityCreator";
-import LoadAction from "../classes/status/LoadAction";
 
 export default class SceneReactions {
-
-    public static LOAD_SOFTVIS: LoadAction = new LoadAction("LOAD_SOFTVIS", "Create visualization");
 
     private builder: CityBuilderStore;
     private scene: SceneStore;

@@ -77,25 +77,30 @@ class LayoutProcessor {
     }
 
     public getIllustration(model: Softvis3dModel, version: VersionInterface) {
-        // Step 1: Load Metrics Scale
-        this._metricScale = model.getMetricScale();
+        return new Promise<any>((resolve) => {
 
-        // Step 2: Prepare the layout
-        if (this._options.layout === "evostreet") {
-            this.setLayoutEvostreet();
-        } else {
-            this.setLayoutDistrict();
-        }
+            // Step 1: Load Metrics Scale
+            this._metricScale = model.getMetricScale();
 
-        // Step 3: Create the Layout
-        const illustrator = new this._illustrator(model, this._options.layoutOptions);
+            // Step 2: Prepare the layout
+            if (this._options.layout === "evostreet") {
+                this.setLayoutEvostreet();
+            } else {
+                this.setLayoutDistrict();
+            }
 
-        // Step 4:
-        for (const rule of this._rules) {
-            illustrator.addRule(rule);
-        }
+            // Step 3: Create the Layout
+            const illustrator = new this._illustrator(model, this._options.layoutOptions);
 
-        return illustrator.draw(version);
+            // Step 4:
+            for (const rule of this._rules) {
+                illustrator.addRule(rule);
+            }
+
+            setTimeout(() => {
+                resolve(illustrator.draw(version));
+            }, 10);
+        });
     }
 
     public setLayoutEvostreet() {

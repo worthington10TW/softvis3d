@@ -1,10 +1,10 @@
 import {SceneStore} from "../stores/SceneStore";
-import Softvis3dModel from "./Softvis3dModel";
-import LayoutProcessor from "./LayoutProcessor";
 import LoadAction from "../classes/status/LoadAction";
 import {AppStatusStore} from "../stores/AppStatusStore";
 import SonarQubeScmService from "../services/sonarqube/SonarQubeScmService";
 import {numberOfAuthorsBlameColorMetric} from "../constants/Metrics";
+import Softvis3dModel from "./Softvis3dModel";
+import LayoutProcessor from "./LayoutProcessor";
 import {TreeElement} from "../classes/TreeElement";
 
 export default class LegacyCityCreator {
@@ -35,8 +35,6 @@ export default class LegacyCityCreator {
                     });
 
                     this.buildCity(model, processor);
-
-                    this.appStatusStore.loadComplete(LegacyCityCreator.BUILD_CITY);
                 }
             }
         );
@@ -69,6 +67,10 @@ export default class LegacyCityCreator {
     }
 
     private buildCity(model: Softvis3dModel, processor: LayoutProcessor) {
-        this.sceneStore.shapes = processor.getIllustration(model, model._version).shapes;
+        processor.getIllustration(model, model._version).then((result) => {
+            this.sceneStore.shapes = result.shapes;
+
+            this.appStatusStore.loadComplete(LegacyCityCreator.BUILD_CITY);
+        });
     }
 }
