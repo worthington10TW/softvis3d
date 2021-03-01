@@ -60,7 +60,7 @@
     "react-custom-scrollbars": "^4.1.2",
     "react-dom": "^15.4.2",
     "sass-loader": "^6.0.5",
-    "three": "^0.85.2",
+    "three": "^0.125.0",
     "three-orbit-controls": "^82.1.0",
     "ts-node": "^3.1.0",
     "tslint": "^5.14.0",
